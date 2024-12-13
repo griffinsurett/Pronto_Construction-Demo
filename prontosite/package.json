@@ -1,6 +1,7 @@
 {
   "name": "pronto",
   "version": "0.1.0",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "@fortawesome/free-brands-svg-icons": "^6.7.1",
