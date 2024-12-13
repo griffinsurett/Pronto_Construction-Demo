@@ -17,7 +17,7 @@ const Contact = ({ data }) => {
           </div>
         ))}
       </div>
-      <form>
+      {/* <form>
         {data.formFields.map((field, i) => (
           <input
             key={i}
@@ -27,7 +27,7 @@ const Contact = ({ data }) => {
           />
         ))}
         <button type="submit">{data.button.text}</button>
-      </form>
+      </form> */}
     </ContentTemplate>
   );
 };

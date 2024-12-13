@@ -199,15 +199,15 @@ const collections = [
         icon: getIcon("fab", "Instagram"),
       },
     ],
-    formFields: [
-      { name: "firstName", placeholder: "First Name" },
-      { name: "lastName", placeholder: "Last Name" },
-      { name: "email", placeholder: "Email" },
-      { name: "phone", placeholder: "Phone Number" },
-      { name: "subject", placeholder: "Subject" },
-      { name: "message", placeholder: "Message" },
-    ],
-    button: { text: "Submit", link: "#" },
+    // formFields: [
+    //   { name: "firstName", placeholder: "First Name" },
+    //   { name: "lastName", placeholder: "Last Name" },
+    //   { name: "email", placeholder: "Email" },
+    //   { name: "phone", placeholder: "Phone Number" },
+    //   { name: "subject", placeholder: "Subject" },
+    //   { name: "message", placeholder: "Message" },
+    // ],
+    // button: { text: "Submit", link: "#" },
   },
   {
     id: 3,
@@ -224,7 +224,6 @@ const collections = [
     itemSections: ["hero", "projects", "testimonials"],
     includeCollectionSlug: false,
     addToQuery: [{ name: "Primary", parentQueryItem: null, queryItemText: "heading", addItemsToQuery: true  }],
-    // addItemsToQuery: "Primary",
     paragraph:
       "Explore our wide range of services designed to meet your needs.",
       keywords: [
@@ -233,49 +232,45 @@ const collections = [
         "home construction",
         "commercial construction NJ",
       ],
-    items: [
-      {
-        icon: getIcon("fa", "Tools"),
-        title: "Construction Work",
-        description: "Comprehensive construction services for all your needs.",
-        slug: "/construction",
-        featuredImage: "https://picsum.photos/200/300",
-        keywords: [
-          "roofing services NJ",
-          "roof repair Middlesex County",
-          "new roof installation",
-        ],
-      },
-      {
-        icon: getIcon("fa", "HardHat"),
-        title: "Roofing",
-        featuredImage: "https://picsum.photos/200/300",
-        description:
-          "Professional roofing services to keep your home protected.",
-        parentItem: "/construction",
-      },
-      {
-        icon: getIcon("fa", "Home"),
-        title: "Exterior Renovation, Construction, Repair",
-        featuredImage: "https://picsum.photos/200/300",
-        description:
-          "Enhance your home's exterior with quality renovation services.",
-      },
-      {
-        icon: getIcon("fa", "Water"),
-        title: "Gutter Work",
-        featuredImage: "https://picsum.photos/200/300",
-        description:
-          "Reliable gutter installation, maintenance, and repair services.",
-      },
-      {
-        icon: getIcon("fa", "PaintRoller"),
-        title: "Painting (Interior/Exterior)",
-        featuredImage: "https://picsum.photos/200/300",
-        description: "High-quality painting services to transform your space.",
-        slug: "/painting",
-      },
-    ],
+      items: [
+        {
+          icon: getIcon("fa", "Tools"),
+          title: "Construction",
+          description: "Comprehensive construction services.",
+          slug: "/construction",
+          featuredImage: "https://picsum.photos/200/300",
+        },
+        {
+          icon: getIcon("fa", "Hammer"),
+          title: "Demolition",
+          description: "Safe and efficient demolition services.",
+          slug: "/demolition",
+          featuredImage: "https://picsum.photos/200/300",
+        },
+        {
+          icon: getIcon("fa", "HardHat"),
+          title: "Roofing",
+          description: "Professional roofing services.",
+          slug: "/roofing",
+          parentItem: "/construction", // Assign parent
+          featuredImage: "https://picsum.photos/200/300",
+        },
+        {
+          icon: getIcon("fa", "Home"),
+          title: "Exterior Renovation",
+          description: "Enhance your home's exterior.",
+          slug: "/exterior-renovation",
+          parentItem: "/construction", // Assign parent
+          featuredImage: "https://picsum.photos/200/300",
+        },
+        {
+          icon: getIcon("fa", "Trash"),
+          title: "Garage Demolition",
+          description: "Efficient garage demolition services.",
+          slug: "/garage-demolition",
+          parentItem: "/demolition", // Assign parent
+          featuredImage: "https://picsum.photos/200/300",
+        }],
   },
   {
     id: 4,
