@@ -56,10 +56,10 @@ const collections = [
   {
     id: 1,
     collection: "about",
-    heading: "Who We Are",
+    heading: "About Pronto Construction and Demolition",
     title: "About Us",
     featuredImage: "https://picsum.photos/200/300",
-    addToQuery: [{ name: "Primary", parentQueryItem: null, queryItemText: "heading" }],
+    addToQuery: "Primary",
     hasPage: true,
     slug: "/about-us",
     sections: [
@@ -156,7 +156,7 @@ const collections = [
     paragraph: `Discover answers to common questions about ${siteSettings.siteTitle}.`,
     hasPage: true,
     slug: "/contact-us",
-    addToQuery: [{ name: "Primary", parentQueryItem: null }],
+    addToQuery: "Primary",
     sections: ["hero", "contact"],
     redirectFrom: ["/contact"],
     contactInfo: [
@@ -199,20 +199,20 @@ const collections = [
         icon: getIcon("fab", "Instagram"),
       },
     ],
-    // formFields: [
-    //   { name: "firstName", placeholder: "First Name" },
-    //   { name: "lastName", placeholder: "Last Name" },
-    //   { name: "email", placeholder: "Email" },
-    //   { name: "phone", placeholder: "Phone Number" },
-    //   { name: "subject", placeholder: "Subject" },
-    //   { name: "message", placeholder: "Message" },
-    // ],
-    // button: { text: "Submit", link: "#" },
+    formFields: [
+      { name: "firstName", placeholder: "First Name" },
+      { name: "lastName", placeholder: "Last Name" },
+      { name: "email", placeholder: "Email" },
+      { name: "phone", placeholder: "Phone Number" },
+      { name: "subject", placeholder: "Subject" },
+      { name: "message", placeholder: "Message" },
+    ],
+    button: { text: "Submit", link: "#" },
   },
   {
     id: 3,
     collection: "services",
-    heading: "What We Do",
+    heading: "Our Services",
     title: "Services",
     featuredImage: "https://picsum.photos/200/300",
     hasPage: true,
@@ -222,8 +222,10 @@ const collections = [
     redirectFrom: ["/service"],
     sections: ["hero", "services", "benefits", "projects", "testimonials"],
     itemSections: ["hero", "projects", "testimonials"],
+    addToQuery: ["Primary"], // Add to multiple menus
     includeCollectionSlug: false,
-    addToQuery: [{ name: "Primary", parentQueryItem: null, queryItemText: "heading", addItemsToQuery: true  }],
+    addItemsToQuery: "Primary",
+    putItemsInSubQuery: "Primary",
     paragraph:
       "Explore our wide range of services designed to meet your needs.",
       keywords: [
@@ -232,41 +234,49 @@ const collections = [
         "home construction",
         "commercial construction NJ",
       ],
-      items: [
-        {
-          icon: getIcon("fa", "Tools"),
-          title: "Construction",
-          slug: "/construction",
-          description: "Comprehensive construction services for all your needs.",
-        },
-        {
-          icon: getIcon("fa", "HardHat"),
-          title: "Roofing",
-          slug: "/roofing",
-          parentItem: "/construction",
-          description: "Professional roofing services to keep your home protected.",
-        },
-        {
-          icon: getIcon("fa", "PaintRoller"),
-          title: "Painting",
-          slug: "/painting",
-          parentItem: "/construction",
-          description: "High-quality painting services to transform your space.",
-        },
-        {
-          icon: getIcon("fa", "Hammer"),
-          title: "Demolition",
-          slug: "/demolition",
-          description: "Efficient and safe demolition services.",
-        },
-        {
-          icon: getIcon("fa", "Truck"),
-          title: "Garage Demolition",
-          slug: "/garage-demolition",
-          parentItem: "/demolition",
-          description: "Efficient garage demolition services.",
-        },
-      ],
+    items: [
+      {
+        icon: getIcon("fa", "Tools"),
+        title: "Construction Work",
+        description: "Comprehensive construction services for all your needs.",
+        slug: "/construction",
+        featuredImage: "https://picsum.photos/200/300",
+        keywords: [
+          "roofing services NJ",
+          "roof repair Middlesex County",
+          "new roof installation",
+        ],
+      },
+      {
+        icon: getIcon("fa", "HardHat"),
+        title: "Roofing",
+        featuredImage: "https://picsum.photos/200/300",
+        description:
+          "Professional roofing services to keep your home protected.",
+        parentItem: "/construction",
+      },
+      {
+        icon: getIcon("fa", "Home"),
+        title: "Exterior Renovation, Construction, Repair",
+        featuredImage: "https://picsum.photos/200/300",
+        description:
+          "Enhance your home's exterior with quality renovation services.",
+      },
+      {
+        icon: getIcon("fa", "Water"),
+        title: "Gutter Work",
+        featuredImage: "https://picsum.photos/200/300",
+        description:
+          "Reliable gutter installation, maintenance, and repair services.",
+      },
+      {
+        icon: getIcon("fa", "PaintRoller"),
+        title: "Painting (Interior/Exterior)",
+        featuredImage: "https://picsum.photos/200/300",
+        description: "High-quality painting services to transform your space.",
+        slug: "/painting",
+      },
+    ],
   },
   {
     id: 4,
@@ -276,8 +286,8 @@ const collections = [
     featuredImage: "https://picsum.photos/200/300",
     hasPage: true,
     itemsHasPage: true,
-    // parentQueryItem: "/about-us",
-    addToQuery: [{ name: "Primary", parentQueryItem: "/about-us" }], // Add to Primary menu
+    // includeCollectionSlug: true,
+    addToQuery: "Primary", // Add to Primary menu
     slug: "/projects",
     sections: ["hero", "projects", "testimonials"],
     itemSections: ["hero", "services", "testimonials"],
@@ -285,7 +295,7 @@ const collections = [
     items: [
       {
         id: 1,
-        title: "Residential Kitchen Remodel",
+        name: "Residential Kitchen Remodel",
         description:
           "A complete renovation of a family kitchen to modern standards.",
         slug: "/kitchen-remodel",
@@ -293,7 +303,7 @@ const collections = [
       },
       {
         id: 2,
-        title: "Garage Demolition",
+        name: "Garage Demolition",
         description: "Efficiently demolished a medium-sized garage structure.",
         slug: "/garage-demolition",
         featuredImage: "https://picsum.photos/200/300",
@@ -307,7 +317,7 @@ const collections = [
     title: "Testimonials",
     hasPage: true,
     featuredImage: "https://picsum.photos/200/300",
-    addToQuery: [{ name: "Primary", parentQueryItem: "/about-us" }], 
+    addToQuery: "Primary", // Add to Primary menu
     slug: "/testimonials",
     sections: ["hero", "testimonials"],
     items: [
@@ -334,7 +344,7 @@ const collections = [
     title: "FAQ",
     hasPage: true,
     featuredImage: "https://picsum.photos/200/300",
-    addToQuery: [{ name: "Primary", parentQueryItem: "/about-us" }], // Add to Primary menu
+    addToQuery: "Primary", // Add to Primary menu
     slug: "/faq",
     sections: ["hero", "faq"],
     redirectFrom: ["/questions"],
@@ -369,14 +379,14 @@ const collections = [
   {
     id: 7,
     collection: "process",
-    heading: "How We Do It",
+    heading: "How It Works",
     title: "Process",
     featuredImage: "https://picsum.photos/200/300",
     hasPage: true,
     itemsHasPage: false,
     slug: "/process",
     sections: ["hero", "process", "contact"],
-    addToQuery: [{ name: "Primary", parentQueryItem: null, queryItemText: "heading" }],
+    addToQuery: "Primary",
     paragraph:
       "Discover how Pronto Construction & Demolition simplifies your project from start to finish.",
     items: [

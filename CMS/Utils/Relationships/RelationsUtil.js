@@ -151,7 +151,24 @@ export class RelationalUtil {
       }
     }
   );
-  }  
+  } 
+  
+  relateParentChild(collectionName, parentSlug, childSlug) {
+    const parentItem = this.findEntityBySlug(collectionName, parentSlug);
+    const childItem = this.findEntityBySlug(collectionName, childSlug);
+
+    if (!parentItem || !childItem) {
+      console.error(`Failed to relate parent-child: ${parentSlug} -> ${childSlug}`);
+      return;
+    }
+
+    parentItem.children = parentItem.children || [];
+    if (!parentItem.children.some((child) => child.slug === childItem.slug)) {
+      parentItem.children.push(childItem);
+    }
+
+    childItem.parent = parentItem.slug;
+  }
 }
 
 export default RelationalUtil;
