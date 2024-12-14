@@ -447,13 +447,13 @@ const relationalUtil = new RelationalUtil({
   collections: processedCollections,
 });
 // Define relationships
-// relationalUtil.relate("services", "/painting", "projects", "/kitchen-remodel");
-// relationalUtil.relate(
-//   "projects",
-//   "/kitchen-remodel",
-//   "testimonials",
-//   "/john-doe"
-// );
+relationalUtil.relate("services", "/painting", "projects", "/kitchen-remodel");
+relationalUtil.relate(
+  "projects",
+  "/kitchen-remodel",
+  "testimonials",
+  "/john-doe"
+);
 
 setLogo(siteSettings.siteLogo);
 
