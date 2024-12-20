@@ -1,4 +1,5 @@
-// CMS/Utils/RedirectFrom.js
+// Utils/Redirect/RedirectFrom.js
+// Utils/Redirect/RedirectFrom.js
 import React from "react";
 import { Route, Navigate } from "react-router-dom";
 import Content from "../../Content";
@@ -9,6 +10,7 @@ import Content from "../../Content";
 const generateRedirectFromRoutes = () => {
   const redirects = [];
 
+  // Process collections for redirectFrom
   Content.collections.forEach((collection) => {
     if (collection.redirectFrom) {
       collection.redirectFrom.forEach((redirectPath) => {
@@ -22,6 +24,7 @@ const generateRedirectFromRoutes = () => {
       });
     }
 
+    // Process items within collections for redirectFrom
     if (collection.itemsHasPage && Array.isArray(collection.items)) {
       collection.items.forEach((item) => {
         if (item.redirectFrom) {
@@ -35,6 +38,18 @@ const generateRedirectFromRoutes = () => {
             );
           });
         }
+
+        // Handle alternate base slugs for items (e.g., `/service/construction`)
+        const baseRedirects = collection.redirectFrom || [];
+        baseRedirects.forEach((baseRedirect) => {
+          redirects.push(
+            <Route
+              key={`fallback-item-${baseRedirect}/${item.slug}`}
+              path={`${baseRedirect}${item.slug}`}
+              element={<Navigate to={item.slug} replace />}
+            />
+          );
+        });
       });
     }
   });

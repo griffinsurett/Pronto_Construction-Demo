@@ -1,0 +1,32 @@
+/* submenu.css */
+/* Remove the old hover rule */
+/* .menu-item:hover .submenu {
+    display: block;
+    pointer-events: auto;
+} */
+
+/* Now show submenu when .hovered class is present */
+.menu-item.hovered .submenu {
+    display: block;
+    pointer-events: auto;
+}
+
+/* Base submenu styles remain the same */
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    list-style: none;
+    margin: 0;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.submenu.open {
+    display: block;
+    pointer-events: auto;
+}

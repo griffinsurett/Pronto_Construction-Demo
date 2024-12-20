@@ -1,29 +1,22 @@
 import React from "react";
+import ContentTemplate from "../../ContentTemplate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Benefits = ({ data }) => {
-  // Validate data structure
-  if (!data || !Array.isArray(data.items)) {
-    console.error("Benefits: Missing or invalid data.items.");
-    return <p>Benefits section data is missing.</p>;
-  }
+  if (!data?.items) return null;
 
   return (
-    <section className="benefits">
-      <h2>{data.title || "Benefits"}</h2>
-      {data.heading && <h3>{data.heading}</h3>}
-      <ul className="benefits-list">
+    <ContentTemplate data={data} sectionButtonText="View All Benefits">
+      <ul>
         {data.items.map((item, index) => (
-          <li key={index} className="benefit-item">
-            {item.icon && (
-              <FontAwesomeIcon icon={item.icon} className="icon" />
-            )}
-            {item.title && <h4>{item.title}</h4>}
-            {item.description && <p>{item.description}</p>}
+          <li key={index}>
+            {item.icon && <FontAwesomeIcon icon={item.icon} />}
+            <h4>{item.title}</h4>
+            <p>{item.description}</p>
           </li>
         ))}
       </ul>
-    </section>
+    </ContentTemplate>
   );
 };
 

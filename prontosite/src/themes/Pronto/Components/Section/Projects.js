@@ -4,12 +4,12 @@ import ContentTemplate from "../ContentTemplate";
 import { Link } from "react-router-dom";
 
 const Projects = ({ data }) => {
-  if (!data) return <p>No Projects section data available.</p>;
+  const items = data?.items || [];
 
   return (
     <ContentTemplate data={data} sectionButtonText="View All Projects">
       <div className="projects-list">
-        {data.items.map((project) => (
+        {items.map((project) => (
           <div key={project.slug} className="project-item">
             <img src={project.featuredImage} alt={project.name || project.title} />
             <h3>{project.name || project.title}</h3>

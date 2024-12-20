@@ -219,9 +219,10 @@ const collections = [
     itemsHasPage: true,
     slug: "/services",
     isHeirarchical: true,
+    onlyParentsOnCollection: true, 
     redirectFrom: ["/service"],
     sections: ["hero", "services", "benefits", "projects", "testimonials"],
-    itemSections: ["hero", "projects", "testimonials"],
+    itemSections: ["hero", "projects", "services", "testimonials"],
     includeCollectionSlug: false,
     addToQuery: [{ name: "Primary", parentQueryItem: null, queryItemText: "heading", addItemsToQuery: true  }],
     paragraph:
@@ -238,6 +239,14 @@ const collections = [
           title: "Construction",
           slug: "/construction",
           description: "Comprehensive construction services for all your needs.",
+          sections: ["hero", "services", "projects", "testimonials"],
+        },
+        {
+          icon: getIcon("fa", "Hammer"),
+          title: "Demolition",
+          slug: "/demolition",
+          description: "Efficient and safe demolition services.",
+          sections: ["hero", "services", "projects", "testimonials"],
         },
         {
           icon: getIcon("fa", "HardHat"),
@@ -252,12 +261,6 @@ const collections = [
           slug: "/painting",
           parentItem: "/construction",
           description: "High-quality painting services to transform your space.",
-        },
-        {
-          icon: getIcon("fa", "Hammer"),
-          title: "Demolition",
-          slug: "/demolition",
-          description: "Efficient and safe demolition services.",
         },
         {
           icon: getIcon("fa", "Truck"),
@@ -279,8 +282,8 @@ const collections = [
     // parentQueryItem: "/about-us",
     addToQuery: [{ name: "Primary", parentQueryItem: "/about-us" }], // Add to Primary menu
     slug: "/projects",
-    sections: ["hero", "projects", "testimonials"],
-    itemSections: ["hero", "services", "testimonials"],
+    sections: ["hero", "projects", "services", "testimonials"],
+    itemSections: ["hero", "services", "testimonials", "projects"],
     paragraph: "See how we’ve helped clients transform their spaces.",
     items: [
       {
@@ -295,7 +298,7 @@ const collections = [
         id: 2,
         title: "Garage Demolition",
         description: "Efficiently demolished a medium-sized garage structure.",
-        slug: "/garage-demolition",
+        slug: "/garage-demolition-in-nj",
         featuredImage: "https://picsum.photos/200/300",
       },
     ],
@@ -446,14 +449,14 @@ const { processedCollections, processedPages } = processDynamicContent({
 const relationalUtil = new RelationalUtil({
   collections: processedCollections,
 });
+
 // Define relationships
+relationalUtil.relate("services", "/construction", "projects", "/kitchen-remodel");
 relationalUtil.relate("services", "/painting", "projects", "/kitchen-remodel");
-relationalUtil.relate(
-  "projects",
-  "/kitchen-remodel",
-  "testimonials",
-  "/john-doe"
-);
+relationalUtil.relate("projects", "/kitchen-remodel", "testimonials", "/john-doe");
+// relationalUtil.relate("services", "/demolition", "projects", "/garage-demolition");
+relationalUtil.relate("services", "/painting", "projects", "/garage-demolition-in-nj");
+// relationalUtil.relate("projects", "/garage-demolition", "testimonials", "/jane-smith");
 
 setLogo(siteSettings.siteLogo);
 

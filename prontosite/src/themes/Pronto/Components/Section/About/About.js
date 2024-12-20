@@ -1,9 +1,9 @@
 import React from "react";
 import ContentTemplate from "../../ContentTemplate";
 
-const AboutSection = ({ data }) => {
+const About = ({ data }) => {
   if (!data) {
-    console.error("AboutSection: Missing data");
+    console.error("About: Missing data");
     return null;
   }
 
@@ -30,4 +30,4 @@ const AboutSection = ({ data }) => {
   );
 };
 
-export default AboutSection;
+export default About;
