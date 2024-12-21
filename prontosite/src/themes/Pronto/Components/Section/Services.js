@@ -27,8 +27,8 @@ const Services = ({ data }) => {
               <p>{item.description || "No description available."}</p>
               {item.hasPage && item.slug && (
                 <Link to={item.slug} className="service-link">
-                  Learn More
-                </Link>
+                  {`See ${item.title || "Service"} details`}
+                  </Link>
               )}
             </li>
           ))}

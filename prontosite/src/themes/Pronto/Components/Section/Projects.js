@@ -20,8 +20,8 @@ const Projects = ({ data }) => {
             <p>{project.description}</p>
             {project.slug ? (
               <Link to={project.slug} className="project-link">
-                Learn More
-              </Link>
+                  {`View Project`}
+                  </Link>
             ) : (
               <a
                 href={project.link}
