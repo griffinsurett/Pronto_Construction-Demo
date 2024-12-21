@@ -1,32 +1,30 @@
 /* submenu.css */
-/* Remove the old hover rule */
-/* .menu-item:hover .submenu {
-    display: block;
-    pointer-events: auto;
-} */
 
-/* Now show submenu when .hovered class is present */
-.menu-item.hovered .submenu {
-    display: block;
-    pointer-events: auto;
-}
-
-/* Base submenu styles remain the same */
+/* All submenus hidden by default */
 .submenu {
     display: none;
     position: absolute;
-    top: 100%;
+    top: 100%; /* below parent */
     left: 0;
-    background-color: #ffffff;
+    background-color: #fff;
     border: 1px solid #ddd;
     padding: 10px;
-    list-style: none;
     margin: 0;
-    z-index: 1000;
-    pointer-events: none;
-}
-
-.submenu.open {
+    list-style: none;
+    pointer-events: none; /* ignore clicks until shown */
+    z-index: 9999;        /* float on top */
+  }
+  
+  /* Reveal submenu on .menu-item.hovered */
+  .menu-item.hovered .submenu {
     display: block;
-    pointer-events: auto;
-}
+    pointer-events: auto; /* clickable now */
+  }
+  
+  /* Deeper nesting, e.g. sub-submenu, opens to the right */
+  .submenu .submenu {
+    top: 0;
+    left: 100%; 
+    margin-left: 2px; /* optional spacing */
+  }
+  

@@ -1,4 +1,4 @@
-// CMS/Utils/GetCollection.js
+// Utils/GetContent/GetCollection.js
 import Content from "../../Content";
 
 /**
@@ -12,22 +12,21 @@ export const getCollection = (slug, pageId = null) => {
   const collection =
     Content.collections.find((c) => c.collection === slug) ||
     Content.collections.find((c) =>
-      c.items?.some((item) => item.slug === slug)
+      c.items?.data?.some((item) => item.slug === slug)
     );
 
   if (!collection) {
-    // console.error(`Collection or item with slug '${slug}' not found.`);
     return null;
   }
 
-  // If `pageId` is "home", return the entire collection
+  // If pageId is "home", return the entire collection
   if (pageId === "home") {
     return collection;
   }
 
-  // If filtering for a specific page, return only related items
-  if (pageId && collection.items) {
-    const relatedItems = collection.items.filter((item) => {
+  // If filtering for a specific page, return only items that are related
+  if (pageId && collection.items && Array.isArray(collection.items.data)) {
+    const relatedItems = collection.items.data.filter((item) => {
       return (
         item.relatedToServices?.includes(pageId) ||
         item.relatedToProjects?.includes(pageId) ||
@@ -35,8 +34,14 @@ export const getCollection = (slug, pageId = null) => {
       );
     });
 
-    return { ...collection, items: relatedItems };
+    return {
+      ...collection,
+      items: {
+        ...collection.items,
+        data: relatedItems,
+      },
+    };
   }
 
-  return collection; // Return the unfiltered collection
+  return collection;
 };

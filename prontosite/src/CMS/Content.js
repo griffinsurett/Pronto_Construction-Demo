@@ -59,17 +59,14 @@ const collections = [
     heading: "Who We Are",
     title: "About Us",
     featuredImage: "https://picsum.photos/200/300",
-    addToQuery: [{ name: "Primary", parentQueryItem: null, queryItemText: "heading" }],
+    // Note: This collection has no sub-items object, so we omit 'items' here.
+    // If you'd like sub-items in the future, just add an 'items' object.
+    addToQuery: [
+      { name: "Primary", parentQueryItem: null, queryItemText: "heading" },
+    ],
     hasPage: true,
     slug: "/about-us",
-    sections: [
-      "hero",
-      "about",
-      "purpose",
-      "whyChooseUs",
-      "aboutInfo",
-      "benefits",
-    ],
+    sections: ["hero", "about", "purpose", "whyChooseUs", "aboutInfo", "benefits"],
     redirectFrom: ["/about"],
     paragraph:
       "At Pronto Construction and Demolition, we specialize in delivering high-quality renovation, construction, and demolition services.",
@@ -199,15 +196,6 @@ const collections = [
         icon: getIcon("fab", "Instagram"),
       },
     ],
-    // formFields: [
-    //   { name: "firstName", placeholder: "First Name" },
-    //   { name: "lastName", placeholder: "Last Name" },
-    //   { name: "email", placeholder: "Email" },
-    //   { name: "phone", placeholder: "Phone Number" },
-    //   { name: "subject", placeholder: "Subject" },
-    //   { name: "message", placeholder: "Message" },
-    // ],
-    // button: { text: "Submit", link: "#" },
   },
   {
     id: 3,
@@ -216,37 +204,47 @@ const collections = [
     title: "Services",
     featuredImage: "https://picsum.photos/200/300",
     hasPage: true,
-    itemsHasPage: true,
     slug: "/services",
-    isHeirarchical: true,
     onlyParentsOnCollection: true, 
     redirectFrom: ["/service"],
     sections: ["hero", "services", "benefits", "projects", "testimonials"],
-    itemSections: ["hero", "projects", "services", "testimonials"],
-    includeCollectionSlug: false,
-    addToQuery: [{ name: "Primary", parentQueryItem: null, queryItemText: "heading", addItemsToQuery: true  }],
-    paragraph:
-      "Explore our wide range of services designed to meet your needs.",
+     addToQuery: [
+      {
+        name: "Primary",
+        parentQueryItem: null,
+        queryItemText: "heading",
+        addItemsToQuery: true,
+        setChildrenUnderParents: true,
+        excludeCollection: false,
+      },
+    ],
+    items: {
+      isHeirarchical: true,
+      itemsHasPage: true,
+      includeCollectionSlug: false,
+      itemSections: ["hero", "projects", "services", "testimonials", "faq"],
+      onlyParentItemsHasPage: true,
+      paragraph: "Explore our wide range of services designed to meet your needs.",
       keywords: [
         "construction services",
         "general contractors",
         "home construction",
         "commercial construction NJ",
       ],
-      items: [
+      data: [
         {
           icon: getIcon("fa", "Tools"),
           title: "Construction",
           slug: "/construction",
           description: "Comprehensive construction services for all your needs.",
-          sections: ["hero", "services", "projects", "testimonials"],
+          sections: ["hero", "services", "projects", "testimonials", "faq"],
         },
         {
           icon: getIcon("fa", "Hammer"),
           title: "Demolition",
           slug: "/demolition",
           description: "Efficient and safe demolition services.",
-          sections: ["hero", "services", "projects", "testimonials"],
+          sections: ["hero", "services", "projects", "testimonials", "faq"],
         },
         {
           icon: getIcon("fa", "HardHat"),
@@ -270,6 +268,7 @@ const collections = [
           description: "Efficient garage demolition services.",
         },
       ],
+    },
   },
   {
     id: 4,
@@ -278,30 +277,30 @@ const collections = [
     title: "Projects",
     featuredImage: "https://picsum.photos/200/300",
     hasPage: true,
-    itemsHasPage: true,
-    // parentQueryItem: "/about-us",
-    addToQuery: [{ name: "Primary", parentQueryItem: "/about-us" }], // Add to Primary menu
     slug: "/projects",
     sections: ["hero", "projects", "services", "testimonials"],
-    itemSections: ["hero", "services", "testimonials", "projects"],
-    paragraph: "See how we’ve helped clients transform their spaces.",
-    items: [
-      {
-        id: 1,
-        title: "Residential Kitchen Remodel",
-        description:
-          "A complete renovation of a family kitchen to modern standards.",
-        slug: "/kitchen-remodel",
-        featuredImage: "https://picsum.photos/200/300",
-      },
-      {
-        id: 2,
-        title: "Garage Demolition",
-        description: "Efficiently demolished a medium-sized garage structure.",
-        slug: "/garage-demolition-in-nj",
-        featuredImage: "https://picsum.photos/200/300",
-      },
-    ],
+    addToQuery: [{ name: "Primary", parentQueryItem: "/about-us" }],
+    items: {
+      itemsHasPage: true,
+      itemSections: ["hero", "projects", "services", "testimonials"],
+      data: [
+        {
+          id: 1,
+          title: "Residential Kitchen Remodel",
+          description:
+            "A complete renovation of a family kitchen to modern standards.",
+          slug: "/kitchen-remodel",
+          featuredImage: "https://picsum.photos/200/300",
+        },
+        {
+          id: 2,
+          title: "Garage Demolition",
+          description: "Efficiently demolished a medium-sized garage structure.",
+          slug: "/garage-demolition-in-nj",
+          featuredImage: "https://picsum.photos/200/300",
+        },
+      ],
+    },
   },
   {
     id: 5,
@@ -310,64 +309,68 @@ const collections = [
     title: "Testimonials",
     hasPage: true,
     featuredImage: "https://picsum.photos/200/300",
-    addToQuery: [{ name: "Primary", parentQueryItem: "/about-us" }], 
+    addToQuery: [{ name: "Primary", parentQueryItem: "/about-us" }],
     slug: "/testimonials",
     sections: ["hero", "testimonials"],
-    items: [
-      {
-        name: "John Doe",
-        quote:
-          "Pronto Construction did an amazing job with our home renovation. Highly recommend!",
-        position: "Homeowner, Middlesex County",
-        featuredImage: "https://picsum.photos/200/300",
-      },
-      {
-        name: "Jane Smith",
-        quote:
-          "Their demolition services were efficient and thorough. Very professional team.",
-        position: "Business Owner, NJ",
-        featuredImage: "https://picsum.photos/200/300",
-      },
-    ],
+    items: {
+      data: [
+        {
+          name: "John Doe",
+          quote:
+            "Pronto Construction did an amazing job with our home renovation. Highly recommend!",
+          position: "Homeowner, Middlesex County",
+          featuredImage: "https://picsum.photos/200/300",
+        },
+        {
+          name: "Jane Smith",
+          quote:
+            "Their demolition services were efficient and thorough. Very professional team.",
+          position: "Business Owner, NJ",
+          featuredImage: "https://picsum.photos/200/300",
+        },
+      ],
+    },
   },
   {
     id: 6,
     collection: "faq",
     heading: "Frequently Asked Questions",
     title: "FAQ",
-    hasPage: true,
+    hasPage: false,
     featuredImage: "https://picsum.photos/200/300",
-    addToQuery: [{ name: "Primary", parentQueryItem: "/about-us" }], // Add to Primary menu
+    addToQuery: [{ name: "Primary", parentQueryItem: "/about-us" }],
     slug: "/faq",
     sections: ["hero", "faq"],
     redirectFrom: ["/questions"],
-    items: [
-      {
-        question: "What services do you offer?",
-        answer:
-          "We offer a wide range of construction, renovation, and demolition services. From kitchen remodeling to complete building demolition, we have the expertise to handle any project.",
-      },
-      {
-        question: "How long have you been in business?",
-        answer:
-          "Pronto Construction and Demolition has been serving Middlesex County and surrounding areas for over 10 years. Our team brings a wealth of experience and expertise to every project.",
-      },
-      {
-        question: "Do you provide free estimates?",
-        answer:
-          "Yes, we offer free estimates for all our services. Contact us to discuss your project and receive a detailed estimate tailored to your needs.",
-      },
-      {
-        question: "Are you licensed and insured?",
-        answer:
-          "Yes, we are fully licensed and insured to provide construction, renovation, and demolition services in Middlesex County and beyond. Our team adheres to all safety regulations and industry standards.",
-      },
-      {
-        question: "What areas do you serve?",
-        answer:
-          "We proudly serve Middlesex County, NJ, and surrounding areas. Contact us to discuss your project and learn more about our service area.",
-      },
-    ],
+    items: {
+      data: [
+        {
+          title: "What services do you offer?",
+          description:
+            "We offer a wide range of construction, renovation, and demolition services. From kitchen remodeling to complete building demolition, we have the expertise to handle any project.",
+        },
+        {
+          title: "How long have you been in business?",
+          description:
+            "Pronto Construction and Demolition has been serving Middlesex County and surrounding areas for over 10 years. Our team brings a wealth of experience and expertise to every project.",
+        },
+        {
+          title: "Do you provide free estimates?",
+          description:
+            "Yes, we offer free estimates for all our services. Contact us to discuss your project and receive a detailed estimate tailored to your needs.",
+        },
+        {
+          title: "Are you licensed and insured?",
+          description:
+            "Yes, we are fully licensed and insured to provide construction, renovation, and demolition services in Middlesex County and beyond. Our team adheres to all safety regulations and industry standards.",
+        },
+        {
+          title: "What areas do you serve?",
+          description:
+            "We proudly serve Middlesex County, NJ, and surrounding areas. Contact us to discuss your project and learn more about our service area.",
+        },
+      ],
+    },
   },
   {
     id: 7,
@@ -376,46 +379,50 @@ const collections = [
     title: "Process",
     featuredImage: "https://picsum.photos/200/300",
     hasPage: true,
-    itemsHasPage: false,
     slug: "/process",
     sections: ["hero", "process", "contact"],
-    addToQuery: [{ name: "Primary", parentQueryItem: null, queryItemText: "heading" }],
-    paragraph:
-      "Discover how Pronto Construction & Demolition simplifies your project from start to finish.",
-    items: [
+    addToQuery: [
       {
-        id: 1,
-        name: "Consultation & Planning",
-        description:
-          "We start by understanding your needs and creating a customized plan for your project.",
-        slug: null, // No individual page for this step
-        featuredImage: "https://picsum.photos/200/300",
-      },
-      {
-        id: 2,
-        name: "Transparent Quoting",
-        description:
-          "Receive a detailed, upfront quote with no hidden fees or surprises.",
-        slug: null,
-        featuredImage: "https://picsum.photos/200/300",
-      },
-      {
-        id: 3,
-        name: "Expert Execution",
-        description:
-          "Our skilled team brings your vision to life while prioritizing safety and precision.",
-        slug: null,
-        featuredImage: "https://picsum.photos/200/300",
-      },
-      {
-        id: 4,
-        name: "Cleanup & Final Touches",
-        description:
-          "We leave your site spotless and ready for its next phase.",
-        slug: null,
-        featuredImage: "https://picsum.photos/200/300",
+        name: "Primary",
+        parentQueryItem: null,
+        queryItemText: "heading",
       },
     ],
+    paragraph:
+      "Discover how Pronto Construction & Demolition simplifies your project from start to finish.",
+    items: {
+      // Not hierarchical; just a data array
+      data: [
+        {
+          id: 1,
+          name: "Consultation & Planning",
+          description:
+            "We start by understanding your needs and creating a customized plan for your project.",
+          featuredImage: "https://picsum.photos/200/300",
+        },
+        {
+          id: 2,
+          name: "Transparent Quoting",
+          description:
+            "Receive a detailed, upfront quote with no hidden fees or surprises.",
+          featuredImage: "https://picsum.photos/200/300",
+        },
+        {
+          id: 3,
+          name: "Expert Execution",
+          description:
+            "Our skilled team brings your vision to life while prioritizing safety and precision.",
+          featuredImage: "https://picsum.photos/200/300",
+        },
+        {
+          id: 4,
+          name: "Cleanup & Final Touches",
+          description:
+            "We leave your site spotless and ready for its next phase.",
+          featuredImage: "https://picsum.photos/200/300",
+        },
+      ],
+    },
   },
 ];
 
@@ -433,7 +440,7 @@ const homepageOverride = {
     "projects",
     "testimonials",
     "contact",
-    "cta",
+    "faq",
   ],
 };
 
@@ -457,6 +464,7 @@ relationalUtil.relate("projects", "/kitchen-remodel", "testimonials", "/john-doe
 // relationalUtil.relate("services", "/demolition", "projects", "/garage-demolition");
 relationalUtil.relate("services", "/painting", "projects", "/garage-demolition-in-nj");
 // relationalUtil.relate("projects", "/garage-demolition", "testimonials", "/jane-smith");
+relationalUtil.relate("services", "/construction", "faq", 2);
 
 setLogo(siteSettings.siteLogo);
 
@@ -465,7 +473,7 @@ const Content = {
   siteSettings,
   collections: processedCollections,
   pages: processedPages,
-  queries: generateQueries(processedCollections, siteSettings), // Changed "menus" to "queries"
+  queries: generateQueries(processedCollections, siteSettings),
 };
 
 export default Content;

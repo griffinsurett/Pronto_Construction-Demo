@@ -1,12 +1,14 @@
 // FAQ.js
 import React, { useState } from "react";
 import ContentTemplate from "../ContentTemplate";
+import { getItemData } from "../../GetItems"; // NEW import
 
 const FAQ = ({ data }) => {
   const [activeIndex, setActiveIndex] = useState(null);
 
-  const items = data?.items || []; // Validate data.items
-  
+  // Use getItemData to unify item retrieval
+  const items = getItemData(data);
+
   if (!items.length) {
     console.warn("FAQ: No questions available.");
     return <p>No FAQ data available.</p>;
@@ -23,13 +25,15 @@ const FAQ = ({ data }) => {
           <div key={index} className="faq-item">
             <button
               onClick={() => toggleFAQ(index)}
-              className={`faq-question ${activeIndex === index ? "active" : ""}`}
+              className={`faq-question ${
+                activeIndex === index ? "active" : ""
+              }`}
             >
-              {item.question || "Untitled Question"}
+              {item.title || "Untitled Question"}
             </button>
             {activeIndex === index && (
               <div className="faq-answer">
-                <p>{item.answer || "No answer available."}</p>
+                <p>{item.description || "No answer available."}</p>
               </div>
             )}
           </div>

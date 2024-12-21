@@ -1,17 +1,13 @@
-// Utils/Redirect/RedirectFrom.js
-// Utils/Redirect/RedirectFrom.js
+// Redirect/RedirectFrom.js
 import React from "react";
 import { Route, Navigate } from "react-router-dom";
 import Content from "../../Content";
 
-/**
- * Generate redirect routes for `redirectFrom` entries in collections and items.
- */
 const generateRedirectFromRoutes = () => {
   const redirects = [];
 
-  // Process collections for redirectFrom
   Content.collections.forEach((collection) => {
+    // Handle collection-level redirects
     if (collection.redirectFrom) {
       collection.redirectFrom.forEach((redirectPath) => {
         redirects.push(
@@ -21,12 +17,26 @@ const generateRedirectFromRoutes = () => {
             element={<Navigate to={collection.slug} replace />}
           />
         );
+
+        // Nested redirect handling
+        if (collection.items && Array.isArray(collection.items.data)) {
+          collection.items.data.forEach((item) => {
+            const nestedSlug = item.slug.replace(collection.slug, ""); // Extract relative slug
+            redirects.push(
+              <Route
+                key={`nested-redirect-${redirectPath}${nestedSlug}`}
+                path={`${redirectPath}${nestedSlug}`}
+                element={<Navigate to={`${collection.slug}${nestedSlug}`} replace />}
+              />
+            );
+          });
+        }
       });
     }
 
-    // Process items within collections for redirectFrom
-    if (collection.itemsHasPage && Array.isArray(collection.items)) {
-      collection.items.forEach((item) => {
+    // Handle item-specific redirects
+    if (collection.items && Array.isArray(collection.items.data)) {
+      collection.items.data.forEach((item) => {
         if (item.redirectFrom) {
           item.redirectFrom.forEach((redirectPath) => {
             redirects.push(
@@ -38,18 +48,6 @@ const generateRedirectFromRoutes = () => {
             );
           });
         }
-
-        // Handle alternate base slugs for items (e.g., `/service/construction`)
-        const baseRedirects = collection.redirectFrom || [];
-        baseRedirects.forEach((baseRedirect) => {
-          redirects.push(
-            <Route
-              key={`fallback-item-${baseRedirect}/${item.slug}`}
-              path={`${baseRedirect}${item.slug}`}
-              element={<Navigate to={item.slug} replace />}
-            />
-          );
-        });
       });
     }
   });

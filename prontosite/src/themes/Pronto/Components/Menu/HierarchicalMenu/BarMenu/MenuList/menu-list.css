@@ -1,11 +1,11 @@
 /* Menu List Styling */
 .menu-list {
-    display: flex;
-    gap: 20px; /* Space between menu items */
-    padding: 0;
-    margin: 0;
-    list-style: none;
-  }
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
   
   /* Menu Item */
   /* Prevent gaps between menu and submenu */

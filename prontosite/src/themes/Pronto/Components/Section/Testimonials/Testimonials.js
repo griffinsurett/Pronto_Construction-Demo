@@ -3,16 +3,21 @@ import React from "react";
 import ContentTemplate from "../../ContentTemplate";
 import CarouselTestimonials from "./Carousel/CarouselTestimonials";
 import StaticTestimonials from "./NonCarousel/StaticTestimonials";
+import { getItemData } from "../../../GetItems"; // NEW import
 
 const Testimonials = ({ data }) => {
-  if (!data?.items) return null;
+  const items = getItemData(data);
+
+  if (!items.length) {
+    return null; // or some fallback UI
+  }
 
   return (
     <ContentTemplate data={data} sectionButtonText="View Testimonials">
-      {data.items.length > 1 ? (
-        <CarouselTestimonials items={data.items} />
+      {items.length > 1 ? (
+        <CarouselTestimonials items={items} />
       ) : (
-        <StaticTestimonials items={data.items} />
+        <StaticTestimonials items={items} />
       )}
     </ContentTemplate>
   );

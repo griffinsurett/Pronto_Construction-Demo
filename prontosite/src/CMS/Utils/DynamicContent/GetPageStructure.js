@@ -1,4 +1,4 @@
-// CMS/Utils/GetPageStructure.js
+// Utils/DynamicContent/GetPageStructure.js
 import Content from "../../Content";
 import { getCollection } from "../GetContent/GetCollection";
 import { RelationalUtil } from "../Relationships/RelationsUtil";
@@ -17,15 +17,20 @@ export const getPageStructure = (pageId) => {
 
   const isCollectionPage = page.isCollection;
   const collection = isCollectionPage ? getCollection(pageId) : null;
+
+  // We must check if the item is inside collection.items.data
   const isItemPage =
     collection &&
-    Array.isArray(collection.items) &&
-    collection.items.some((item) => item.slug === pageId);
+    collection.items &&
+    Array.isArray(collection.items.data) &&
+    collection.items.data.some((item) => item.slug === pageId);
 
+  // If it's an item page, get the actual item
   const item = isItemPage
-    ? collection.items.find((i) => i.slug === pageId)
+    ? collection.items.data.find((i) => i.slug === pageId)
     : null;
 
+  // Featured image priority: item -> collection -> page
   const featuredImage =
     item?.featuredImage || collection?.featuredImage || page.featuredImage;
 
@@ -37,7 +42,12 @@ export const getPageStructure = (pageId) => {
     "Untitled Page";
 
   const description =
-    item?.description || collection?.paragraph || page.description || "";
+    item?.description ||
+    collection?.paragraph ||
+    // If no collection-level paragraph, maybe check collection.items.paragraph
+    collection?.items?.paragraph ||
+    page.description ||
+    "";
 
   const content = page.content || item?.content || "";
 
@@ -53,16 +63,19 @@ export const getPageStructure = (pageId) => {
     }
   });
 
-  // Helper function to aggregate cross-relations without losing lines
   const aggregateCrossRelations = (items) => {
     const aggregatedRelations = {};
     items?.forEach((itm) => {
       Object.keys(itm).forEach((relationKey) => {
         if (relationKey.startsWith("relatedTo")) {
-          const relatedCollectionName = relationKey.replace("relatedTo", "").toLowerCase();
+          const relatedCollectionName = relationKey
+            .replace("relatedTo", "")
+            .toLowerCase();
           const relatedSlugs = itm[relationKey] || [];
           const relatedItems = relatedSlugs
-            .map((slug) => relationalUtil.findEntityBySlug(relatedCollectionName, slug))
+            .map((slug) =>
+              relationalUtil.findEntityBySlug(relatedCollectionName, slug)
+            )
             .filter(Boolean);
 
           aggregatedRelations[relatedCollectionName] =
@@ -72,7 +85,7 @@ export const getPageStructure = (pageId) => {
       });
     });
 
-    // Deduplicate aggregated relations
+    // Deduplicate aggregated
     Object.keys(aggregatedRelations).forEach((key) => {
       aggregatedRelations[key] = [
         ...new Map(aggregatedRelations[key].map((i) => [i.slug, i])).values(),
@@ -83,14 +96,13 @@ export const getPageStructure = (pageId) => {
   };
 
   if (isCollectionPage && !isItemPage && collection) {
-    // 1. Handle Collection-Level Pages (Regular & Hierarchical)
-    const aggregatedRelations = {}; // Keep the variable for consistency
-
-    if (collection.isHeirarchical && collection.onlyParentsOnCollection) {
+    // COLLECTION-LEVEL PAGE
+    if (
+      collection.items?.isHeirarchical &&
+      collection.onlyParentsOnCollection
+    ) {
       const parents = hierarchyUtil.getParents(collection.collection);
-      // We don't remove aggregated relations logic; we just won't populate it here since only parents are shown.
-      // However, we can still run the aggregator if needed:
-      const crossRels = aggregateCrossRelations(collection.items);
+      const crossRels = aggregateCrossRelations(collection.items.data);
 
       sections = page.sections.map((sectionKey) => {
         let sectionData;
@@ -102,21 +114,16 @@ export const getPageStructure = (pageId) => {
         } else if (objectSectionsMap[sectionKey]) {
           sectionData = objectSectionsMap[sectionKey];
         } else {
-          // Use crossRels so that we don't lose any unrelated items
           sectionData = {
             ...(getCollection(sectionKey) || {}),
             items: crossRels[sectionKey] || [],
           };
         }
-
         return { key: sectionKey, data: sectionData };
       });
-    } 
-    else {
-      // Original non-hierarchical collection page logic
-      // We restore the original cross-relation aggregation here:
-      const crossRels = aggregateCrossRelations(collection.items);
-
+    } else {
+      // NON-HIERARCHICAL
+      const crossRels = aggregateCrossRelations(collection.items?.data);
       sections = page.sections.map((sectionKey) => {
         let sectionData;
 
@@ -136,43 +143,49 @@ export const getPageStructure = (pageId) => {
         return { key: sectionKey, data: sectionData };
       });
     }
-  }
-   else if (isItemPage && collection) {
-    // 2. Handle Item-Level Pages
-    // Aggregate cross relations for this single item
+  } else if (isItemPage && collection) {
+    // ITEM-LEVEL PAGE
     const crossRels = aggregateCrossRelations([item]);
 
     sections = page.sections.map((sectionKey) => {
       let sectionData;
 
-      if (sectionKey === collection.collection && collection.isHeirarchical) {
-        // Hierarchical logic
+      // HIERARCHICAL SCENARIO
+      if (sectionKey === collection.collection && collection.items?.isHeirarchical) {
         if (hierarchyUtil.isParent(item)) {
-          const children = hierarchyUtil.getChildren(collection.collection, item.slug);
+          const children = hierarchyUtil.getChildren(
+            collection.collection,
+            item.slug
+          );
           sectionData = {
             title: "Child Items",
             items: children,
             slug: collection.slug,
-            hasPage: collection.hasPage
+            hasPage: collection.hasPage,
           };
         } else {
           const parentSlug = item.parentItem;
           if (parentSlug) {
-            const siblings = hierarchyUtil.getSiblings(collection.collection, parentSlug, item.slug);
+            const siblings = hierarchyUtil.getSiblings(
+              collection.collection,
+              parentSlug,
+              item.slug
+            );
             sectionData = {
               title: `Related ${collection.title || collection.heading || "Items"}`,
               items: siblings,
               slug: collection.slug,
-              hasPage: collection.hasPage
+              hasPage: collection.hasPage,
             };
           } else {
             sectionData = { title: "No Related Items", items: [] };
           }
         }
-      } else if (sectionKey === collection.collection && !collection.isHeirarchical) {
-        // Non-Hierarchical Collection Item Page Logic (Similarity Score)
-        
-        // Extract all relations from the current item
+      } else if (
+        sectionKey === collection.collection &&
+        !collection.items?.isHeirarchical
+      ) {
+        // NON-HIERARCHICAL ITEM PAGE LOGIC
         const currentRelations = Object.keys(item)
           .filter((key) => key.startsWith("relatedTo"))
           .reduce((acc, relationKey) => {
@@ -180,8 +193,9 @@ export const getPageStructure = (pageId) => {
             return acc;
           }, {});
 
-        // Calculate similarity scores for other items in the same collection
-        const candidates = collection.items.filter((i) => i.slug !== item.slug);
+        const candidates = collection.items.data.filter(
+          (i) => i.slug !== item.slug
+        );
         const scoredCandidates = candidates.map((candidate) => {
           let score = 0;
           Object.keys(currentRelations).forEach((relationKey) => {
@@ -213,10 +227,10 @@ export const getPageStructure = (pageId) => {
       } else if (objectSectionsMap[sectionKey]) {
         sectionData = objectSectionsMap[sectionKey];
       } else if (crossRels[sectionKey]) {
-        // Include cross relational data here as well, in case the sectionKey matches a related collection
+        // If the sectionKey matches a related collection
         sectionData = {
           title: `Related ${sectionKey.charAt(0).toUpperCase() + sectionKey.slice(1)}`,
-          items: crossRels[sectionKey]
+          items: crossRels[sectionKey],
         };
       } else {
         sectionData = getCollection(sectionKey, pageId) || null;
@@ -225,12 +239,15 @@ export const getPageStructure = (pageId) => {
       return { key: sectionKey, data: sectionData };
     });
   } else {
-    // 3. Handle Static Pages or Homepage
+    // STATIC OR HOMEPAGE
     sections = page.sections.map((sectionKey) => {
       let sectionData;
       const targetCollection = getCollection(sectionKey);
 
-      if (targetCollection?.isHeirarchical && targetCollection.onlyParentsOnCollection) {
+      if (
+        targetCollection?.items?.isHeirarchical &&
+        targetCollection.onlyParentsOnCollection
+      ) {
         const parents = hierarchyUtil.getParents(targetCollection.collection);
         sectionData = { ...targetCollection, items: parents };
       } else if (objectSectionsMap[sectionKey]) {

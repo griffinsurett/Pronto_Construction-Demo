@@ -3,8 +3,9 @@
  * Utility to generate automatic slugs for collections and items.
  * Automatically prefixes item slugs with their parent collection name unless `includeCollectionSlug` is explicitly set to `false`.
  */
+
 const generateSlug = (title) => {
-  if (!title) return ""; // Handle cases where no title is provided
+  if (!title) return "";
   return title
     .toLowerCase()
     .replace(/[^a-z0-9\s]/g, "") // Remove special characters
@@ -14,47 +15,52 @@ const generateSlug = (title) => {
 
 const autoSlug = (collections) => {
   collections.forEach((collection) => {
-    // Default `includeCollectionSlug` to true
-    const includeCollectionSlug = collection.includeCollectionSlug ?? true;
-
     // Generate a slug for the collection if it doesn't already have one
     if (!collection.slug) {
       collection.slug = `/${generateSlug(collection.title || collection.heading)}`;
     }
 
+    // If no items object or no data, skip
+    if (!collection.items || !Array.isArray(collection.items.data)) {
+      return;
+    }
+
+    // Default `includeCollectionSlug` to true if missing
+    const includeCollectionSlug =
+      collection.items.includeCollectionSlug ?? true;
+
     // Process items for collections
-    if (Array.isArray(collection.items)) {
-      const parentSlug = collection.slug ? collection.slug.replace(/\/$/, "") : "";
+    collection.items.data.forEach((item) => {
+      const itemSlug = generateSlug(item.title || item.name);
 
-      collection.items.forEach((item) => {
-        const itemSlug = generateSlug(item.title || item.name);
+      if (!item.slug) {
+        // Generate slug based on `includeCollectionSlug`
+        item.slug = includeCollectionSlug
+          ? `${collection.slug.replace(/\/$/, "")}/${itemSlug}`
+          : `/${itemSlug}`;
 
-        if (!item.slug) {
-          // Generate slug based on `includeCollectionSlug`
+        // Add redirect for the alternate slug
+        item.redirectFrom = item.redirectFrom || [];
+        item.redirectFrom.push(
+          includeCollectionSlug ? `/${itemSlug}` : `${collection.slug.replace(/\/$/, "")}/${itemSlug}`
+        );
+      } else {
+        // If the item has a manual slug, we still unify it
+        const manualSlug = item.slug.replace(/^\//, "");
+        if (!item.slug.startsWith(collection.slug)) {
           item.slug = includeCollectionSlug
-            ? `${parentSlug}/${itemSlug}`
-            : `/${itemSlug}`;
-
-          // Add redirect for the alternate slug
-          item.redirectFrom = item.redirectFrom || [];
-          item.redirectFrom.push(
-            includeCollectionSlug ? `/${itemSlug}` : `${parentSlug}/${itemSlug}`
-          );
-        } else if (!item.slug.startsWith(parentSlug)) {
-          // Respect manually set slugs and normalize them
-          const manualSlug = item.slug.replace(/^\//, "");
-          item.slug = includeCollectionSlug
-            ? `${parentSlug}/${manualSlug}`
+            ? `${collection.slug.replace(/\/$/, "")}/${manualSlug}`
             : `/${manualSlug}`;
 
-          // Add redirect for the alternate slug
           item.redirectFrom = item.redirectFrom || [];
           item.redirectFrom.push(
-            includeCollectionSlug ? `/${manualSlug}` : `${parentSlug}/${manualSlug}`
+            includeCollectionSlug
+              ? `/${manualSlug}`
+              : `${collection.slug.replace(/\/$/, "")}/${manualSlug}`
           );
         }
-      });
-    }
+      }
+    });
   });
 
   return collections; // Return updated collections

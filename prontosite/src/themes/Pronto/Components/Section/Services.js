@@ -3,18 +3,19 @@ import React from "react";
 import ContentTemplate from "../ContentTemplate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import { getItemData } from "../../GetItems"; // NEW import
 
 const Services = ({ data }) => {
-  const items = data?.items || []; // Fallback for missing items
+  // Use our new utility to get items
+  const items = getItemData(data);
 
   return (
     <ContentTemplate
       data={data}
-      sectionButtonText="View All Services" // Button Text
-      showSectionButton={!!data.slug} // Conditionally show the button
-      sectionSlug={data.slug} // Pass the slug to the ContentTemplate
+      sectionButtonText="View All Services"
+      showSectionButton={!!data.slug}
+      sectionSlug={data.slug}
     >
-      {/* Service Items */}
       {items.length > 0 ? (
         <ul className="services-list">
           {items.map((item, index) => (
@@ -24,9 +25,12 @@ const Services = ({ data }) => {
               )}
               <h3>{item.title || "Service Title"}</h3>
               <p>{item.description || "No description available."}</p>
-              <Link to={item.slug} className="service-link">
-                Learn More
-              </Link>            </li>
+              {item.hasPage && item.slug && (
+                <Link to={item.slug} className="service-link">
+                  Learn More
+                </Link>
+              )}
+            </li>
           ))}
         </ul>
       ) : (
