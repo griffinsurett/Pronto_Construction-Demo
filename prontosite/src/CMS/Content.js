@@ -58,7 +58,7 @@ const collections = [
     collection: "about",
     heading: "Who We Are",
     title: "About Us",
-    featuredImage: "https://picsum.photos/200/300",
+    featuredImage: Logo,
     // Note: This collection has no sub-items object, so we omit 'items' here.
     // If you'd like sub-items in the future, just add an 'items' object.
     addToQuery: [
@@ -149,7 +149,7 @@ const collections = [
     collection: "contact",
     heading: "Contact Us.",
     title: "Contact Us",
-    featuredImage: "https://picsum.photos/200/300",
+    featuredImage: Logo,
     paragraph: `Discover answers to common questions about ${siteSettings.siteTitle}.`,
     hasPage: true,
     slug: "/contact-us",
@@ -202,7 +202,7 @@ const collections = [
     collection: "services",
     heading: "What We Do",
     title: "Services",
-    featuredImage: "https://picsum.photos/200/300",
+    featuredImage: Logo,
     hasPage: true,
     slug: "/services",
     onlyParentsOnCollection: true, 
@@ -275,7 +275,7 @@ const collections = [
     collection: "projects",
     heading: "Our Projects",
     title: "Projects",
-    featuredImage: "https://picsum.photos/200/300",
+    featuredImage: Logo,
     hasPage: true,
     slug: "/projects",
     sections: ["hero", "projects", "services", "testimonials"],
@@ -290,14 +290,14 @@ const collections = [
           description:
             "A complete renovation of a family kitchen to modern standards.",
           slug: "/kitchen-remodel",
-          featuredImage: "https://picsum.photos/200/300",
+          featuredImage: Logo,
         },
         {
           id: 2,
           title: "Garage Demolition",
           description: "Efficiently demolished a medium-sized garage structure.",
           slug: "/garage-demolition-in-nj",
-          featuredImage: "https://picsum.photos/200/300",
+          featuredImage: Logo,
         },
       ],
     },
@@ -308,7 +308,7 @@ const collections = [
     heading: "What Our Clients Say",
     title: "Testimonials",
     hasPage: true,
-    featuredImage: "https://picsum.photos/200/300",
+    featuredImage: Logo,
     addToQuery: [{ name: "Primary", parentQueryItem: "/about-us" }],
     slug: "/testimonials",
     sections: ["hero", "testimonials"],
@@ -319,14 +319,14 @@ const collections = [
           quote:
             "Pronto Construction did an amazing job with our home renovation. Highly recommend!",
           position: "Homeowner, Middlesex County",
-          featuredImage: "https://picsum.photos/200/300",
+          featuredImage: Logo,
         },
         {
           name: "Jane Smith",
           quote:
             "Their demolition services were efficient and thorough. Very professional team.",
           position: "Business Owner, NJ",
-          featuredImage: "https://picsum.photos/200/300",
+          featuredImage: Logo,
         },
       ],
     },
@@ -337,7 +337,7 @@ const collections = [
     heading: "Frequently Asked Questions",
     title: "FAQ",
     hasPage: false,
-    featuredImage: "https://picsum.photos/200/300",
+    featuredImage: Logo,
     addToQuery: [{ name: "Primary", parentQueryItem: "/about-us" }],
     slug: "/faq",
     sections: ["hero", "faq"],
@@ -377,7 +377,7 @@ const collections = [
     collection: "process",
     heading: "How We Do It",
     title: "Process",
-    featuredImage: "https://picsum.photos/200/300",
+    featuredImage: Logo,
     hasPage: true,
     slug: "/process",
     sections: ["hero", "process", "contact"],
@@ -398,28 +398,28 @@ const collections = [
           name: "Consultation & Planning",
           description:
             "We start by understanding your needs and creating a customized plan for your project.",
-          featuredImage: "https://picsum.photos/200/300",
+          featuredImage: Logo,
         },
         {
           id: 2,
           name: "Transparent Quoting",
           description:
             "Receive a detailed, upfront quote with no hidden fees or surprises.",
-          featuredImage: "https://picsum.photos/200/300",
+          featuredImage: Logo,
         },
         {
           id: 3,
           name: "Expert Execution",
           description:
             "Our skilled team brings your vision to life while prioritizing safety and precision.",
-          featuredImage: "https://picsum.photos/200/300",
+          featuredImage: Logo,
         },
         {
           id: 4,
           name: "Cleanup & Final Touches",
           description:
             "We leave your site spotless and ready for its next phase.",
-          featuredImage: "https://picsum.photos/200/300",
+          featuredImage: Logo,
         },
       ],
     },
@@ -429,7 +429,7 @@ const collections = [
 const homepageOverride = {
   title: `${siteSettings.siteTagline}`,
   description: `${siteSettings.siteDescription}`,
-  featuredImage: "https://picsum.photos/200/300",
+  featuredImage: Logo,
   sections: [
     "hero",
     "about",
