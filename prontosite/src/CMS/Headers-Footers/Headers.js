@@ -3,27 +3,9 @@
  * Handles analytics-related elements for the <head> tag.
  */
 
-/**
- * headers.js
- * Handles analytics-related elements for the <head> tag.
- */
-
-import {
-    initializeGoogleAnalytics,
-    initializeGoogleTagManager,
-    initializeFacebookPixel,
-    initializeGoogleSearchConsole,
-    // initializeFacebookSDK,
-    initializeGoogleMaps,
-  } from "../Utils/SEO/Analytics";
+import SetMetaInfo from "../../CMS/Utils/SEO/SetMetaInfo";
   
   export const initializeAnalyticsHead = () => {
-    console.log("Initializing analytics and SDKs in <head>...");
-    // initializeGoogleAnalytics();
-    // initializeGoogleTagManager();
-    // initializeFacebookPixel();
-    // initializeGoogleSearchConsole();
-    // initializeFacebookSDK();
-    // initializeGoogleMaps();
+    <SetMetaInfo />
   };
   
