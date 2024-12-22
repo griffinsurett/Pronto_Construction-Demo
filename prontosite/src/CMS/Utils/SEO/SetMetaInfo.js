@@ -81,42 +81,32 @@ export const setMetaInfo = ({
   structuredDataScript.textContent = JSON.stringify(schemaData, null, 2);
   console.log("Structured data set:", schemaData);
 
-  // Open Graph meta tags
-  const ogTags = {
-    "og:title": fullTitle, // Append siteTitle
-    "og:description": description,
-    "og:image": image,
-    "og:url": url,
-    "og:type": "website",
-  };
+ // Open Graph tags
+ const ogTags = {
+  "og:title": title,
+  "og:description": description,
+  "og:image": image,
+  "og:url": url,
+  "og:type": "website",
+};
+for (const [property, content] of Object.entries(ogTags)) {
+  let tag = document.querySelector(`meta[property='${property}']`) || document.createElement("meta");
+  tag.setAttribute("property", property);
+  tag.content = content;
+  document.head.appendChild(tag);
+}
 
-  for (const [property, content] of Object.entries(ogTags)) {
-    let tag = document.querySelector(`meta[property='${property}']`);
-    if (!tag) {
-      tag = document.createElement("meta");
-      tag.setAttribute("property", property);
-      document.head.appendChild(tag);
-    }
-    tag.content = content;
-    console.log(`Open Graph tag set: ${property} = ${content}`);
-  }
-
-  // Twitter Card meta tags
-  const twitterTags = {
-    "twitter:title": fullTitle, // Append siteTitle
-    "twitter:description": description,
-    "twitter:image": image,
-    "twitter:card": "summary_large_image",
-  };
-
-  for (const [name, content] of Object.entries(twitterTags)) {
-    let tag = document.querySelector(`meta[name='${name}']`);
-    if (!tag) {
-      tag = document.createElement("meta");
-      tag.setAttribute("name", name);
-      document.head.appendChild(tag);
-    }
-    tag.content = content;
-    console.log(`Twitter tag set: ${name} = ${content}`);
-  }
+// Twitter tags
+const twitterTags = {
+  "twitter:card": "summary_large_image",
+  "twitter:title": title,
+  "twitter:description": description,
+  "twitter:image": image,
+};
+for (const [name, content] of Object.entries(twitterTags)) {
+  let tag = document.querySelector(`meta[name='${name}']`) || document.createElement("meta");
+  tag.setAttribute("name", name);
+  tag.content = content;
+  document.head.appendChild(tag);
+}
 };
