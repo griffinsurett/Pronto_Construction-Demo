@@ -16,39 +16,41 @@ const processDynamicContent = ({ pages, collections }) => {
         sections: collection.sections,
         slug: collection.slug,
         isCollection: true,
+        crawl: true,
       });
+      console.log(processedPages)
     }
 
+
     // If we have item-level pages
-  // If we have item-level pages
-// If we have item-level pages:
-if (
+ if (
   collection.items &&
   collection.items.itemsHasPage &&
   Array.isArray(collection.items.data)
 ) {
   collection.items.data.forEach((item) => {
-    // 1) If `onlyParentItemsHasPage` is TRUE, skip children
+    // If we aren't skipping child pages...
     const skipChildPage =
       collection.items.onlyParentItemsHasPage === true && item.parentItem;
-
-    // 2) If not skipping, generate a page
     if (!skipChildPage && item.slug) {
       processedPages.push({
         id: item.slug,
         sections: item.sections || collection.items.itemSections,
         slug: item.slug,
         isCollection: true,
+
+        // Automatically set crawl = true for item pages
+        crawl: true,
       });
       // Mark the item as having a page
       item.hasPage = true;
     } else {
-      // Otherwise, no page
+      // No page
       item.hasPage = false;
     }
   });
 }
-  });
+});
 
   return { processedCollections, processedPages };
 };
