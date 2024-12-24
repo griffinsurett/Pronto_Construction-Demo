@@ -1,309 +1,100 @@
 /* global-styles.css */
 
-/* Root Variables */
-:root {
-    --container-width: 90%;
-    --section-height: 100vh;
-  
-    /* Spacing */
-    --space-small: 15px;
-    --space-medium: 20px;
-    --space-large: 60px;
-  
-    /* Typography */
-    --font-size-h1: clamp(2rem, 4vw, 3rem);
-    --font-size-h2: clamp(1.5rem, 3vw, 2.5rem);
-    --font-size-p: clamp(1rem, 2vw, 1.1rem);
-    --line-height-heading: 1.2;
-    --line-height-paragraph: 1.5;
-  
-    /* Font System */
-    --font-family-primary: Arial, Helvetica, sans-serif;
-    --font-family-secondary: Georgia, "Times New Roman", serif;
-    --font-family-monospace: "Courier New", monospace;
-  
-    /* Transitions */
-    --transition-default: 0.3s ease-in-out;
-  
-    /* Borders and Radius */
-    --border-radius: 5px;
-  
-    /* Colors */
-    --color-primary: #3498db; /* Bright blue */
-    --color-secondary: #2ecc71; /* Soft green */
-    --color-accent: #e74c3c; /* Vibrant red */
-    --color-background: #f8f9fa; /* Light gray */
-    --color-foreground: #ffffff; /* White */
-    --color-text: #333333; /* Dark gray */
-    --color-muted: #95a5a6; /* Muted gray */
-    --color-border: #dddddd; /* Light border */
-  }
-  
-  /* Basic Reset */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-size: var(--font-size-p);
-    line-height: var(--line-height-paragraph);
-    scroll-behavior: smooth;
-    font-family: var(--font-family-primary);
-    background-color: var(--color-background);
-    color: var(--color-text);
-  }
-  
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    line-height: var(--line-height-heading);
-    font-family: var(--font-family-secondary);
-  }
-  
-  p {
-    font-size: var(--font-size-p);
-    line-height: var(--line-height-paragraph);
-  }
-  
-  a {
-    text-decoration: none;
-    color: var(--color-primary);
-    transition: color var(--transition-default);
-  }
-  a:hover {
-    color: var(--color-accent);
-  }
-  
-  /* Utility Classes */
-  .flex {
-    display: flex;
-  }
-  .justify-center {
-    justify-content: center;
-  }
-  .align-center {
-    align-items: center;
-  }
-  .text-center {
-    text-align: center;
-  }
-  .text-left {
-    text-align: left;
-  }
-  .text-right {
-    text-align: right;
-  }
-  .full-height {
-    min-height: var(--section-height);
-  }
-  .margin-auto {
-    margin: auto;
-  }
-  .spacing-small {
-    padding: var(--space-small);
-  }
-  .spacing-medium {
-    padding: var(--space-medium);
-  }
-  .spacing-large {
-    padding: var(--space-large);
-  }
-  
-  /* Width Utilities */
-  .w-10 {
-    width: 10%;
-  }
-  .w-25 {
-    width: 25%;
-  }
-  .w-50 {
-    width: 50%;
-  }
-  .w-75 {
-    width: 75%;
-  }
-  .w-100 {
-    width: 100%;
-  }
-  
-  /* Flex Utilities */
-  .column {
-    flex-direction: column;
-  }
-  
-  .row {
-    flex-direction: row;
-  }
-  
-  .wrap {
-    flex-wrap: wrap;
-  }
-  
-  /* Spacing Utilities */
-  .gap-small {
-    gap: var(--space-small);
-  }
-  
-  .gap-medium {
-    gap: var(--space-medium);
-  }
-  
-  .gap-large {
-    gap: var(--space-large);
-  }
-  
-  /* Positioning Utilities */
-  .absolute {
-    position: absolute;
-  }
-  .relative {
-    position: relative;
-  }
-  .fixed {
-    position: fixed;
-  }
-  .top-0 {
-    top: 0;
-  }
-  .bottom-0 {
-    bottom: 0;
-  }
-  .left-0 {
-    left: 0;
-  }
-  .right-0 {
-    right: 0;
-  }
-  
-  /* Margin Utilities */
-  .m-0 {
-    margin: 0;
-  }
-  .m-auto {
-    margin: auto;
-  }
-  .m-sm {
-    margin: var(--space-small);
-  }
-  .m-md {
-    margin: var(--space-medium);
-  }
-  .m-lg {
-    margin: var(--space-large);
-  }
-  .mt-0 {
-    margin-top: 0;
-  }
-  .mt-sm {
-    margin-top: var(--space-small);
-  }
-  .mt-md {
-    margin-top: var(--space-medium);
-  }
-  .mt-lg {
-    margin-top: var(--space-large);
-  }
-  .mb-0 {
-    margin-bottom: 0;
-  }
-  .mb-sm {
-    margin-bottom: var(--space-small);
-  }
-  .mb-md {
-    margin-bottom: var(--space-medium);
-  }
-  .mb-lg {
-    margin-bottom: var(--space-large);
-  }
-  .ml-0 {
-    margin-left: 0;
-  }
-  .ml-sm {
-    margin-left: var(--space-small);
-  }
-  .ml-md {
-    margin-left: var(--space-medium);
-  }
-  .ml-lg {
-    margin-left: var(--space-large);
-  }
-  .mr-0 {
-    margin-right: 0;
-  }
-  .mr-sm {
-    margin-right: var(--space-small);
-  }
-  .mr-md {
-    margin-right: var(--space-medium);
-  }
-  .mr-lg {
-    margin-right: var(--space-large);
-  }
-  
-  /* Padding Utilities */
-  .p-0 {
-    padding: 0;
-  }
-  .p-sm {
-    padding: var(--space-small);
-  }
-  .p-md {
-    padding: var(--space-medium);
-  }
-  .p-lg {
-    padding: var(--space-large);
-  }
-  .pt-0 {
-    padding-top: 0;
-  }
-  .pt-sm {
-    padding-top: var(--space-small);
-  }
-  .pt-md {
-    padding-top: var(--space-medium);
-  }
-  .pt-lg {
-    padding-top: var(--space-large);
-  }
-  .pb-0 {
-    padding-bottom: 0;
-  }
-  .pb-sm {
-    padding-bottom: var(--space-small);
-  }
-  .pb-md {
-    padding-bottom: var(--space-medium);
-  }
-  .pb-lg {
-    padding-bottom: var(--space-large);
-  }
-  .pl-0 {
-    padding-left: 0;
-  }
-  .pl-sm {
-    padding-left: var(--space-small);
-  }
-  .pl-md {
-    padding-left: var(--space-medium);
-  }
-  .pl-lg {
-    padding-left: var(--space-large);
-  }
-  .pr-0 {
-    padding-right: 0;
-  }
-  .pr-sm {
-    padding-right: var(--space-small);
-  }
-  .pr-md {
-    padding-right: var(--space-medium);
-  }
-  .pr-lg {
-    padding-right: var(--space-large);
-  }
-  
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Utility Classes */
+
+/* Flex Utilities */
+.flex {
+  display: flex;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.h-100 {
+  min-height: 100vh; /* Fixed value; does not change per theme */
+}
+
+.margin-auto {
+  margin: auto;
+}
+
+/* Width Utilities */
+.w-10 {
+  width: 10%;
+}
+
+.w-25 {
+  width: 25%;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.w-75 {
+  width: 75%;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+/* Flex Direction Utilities */
+.column {
+  flex-direction: column;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+/* Positioning Utilities */
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+.fixed {
+  position: fixed;
+}
+.top-0 {
+  top: 0;
+}
+.bottom-0 {
+  bottom: 0;
+}
+.left-0 {
+  left: 0;
+}
+.right-0 {
+  right: 0;
+}

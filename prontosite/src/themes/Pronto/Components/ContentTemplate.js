@@ -28,6 +28,8 @@ const ContentTemplate = ({
 
   return (
     <section className={`content-template ${className}`}>
+      
+      
       {/* Title */}
       {title && <h5>{title}</h5>}
 

@@ -120,6 +120,3 @@ export const setMetaInfo = ({
     console.log(`Twitter tag set: ${name} = ${content}`);
   }
 };
-
-// Add this at the end of the file
-export default setMetaInfo;

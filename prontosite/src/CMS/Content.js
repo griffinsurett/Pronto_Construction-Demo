@@ -337,7 +337,7 @@ const collections = [
     collection: "faq",
     heading: "Frequently Asked Questions",
     title: "FAQ",
-    hasPage: false,
+    hasPage: true,
     featuredImage: TestImage,
     addToQuery: [{ name: "Primary", parentQueryItem: "/about-us" }],
     slug: "/faq",

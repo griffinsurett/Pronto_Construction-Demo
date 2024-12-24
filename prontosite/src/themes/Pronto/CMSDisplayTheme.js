@@ -2,21 +2,22 @@
 import React from "react";
 import useThemeContent from "../../CMS/ThemeContentBridge";
 import MenuManager from "./Components/Menu/MenuManager"; // Import MenuManager
-import HomeHero from "./Components/Section/Hero/Hero";
-import GenericHero from "./Components/Section/Hero/Hero2";
-import About from "./Components/Section/About/About";
-import Services from "./Components/Section/Services";
-import Contact from "./Components/Section/Contact";
-import Testimonials from "./Components/Section/Testimonials/Testimonials";
-import Projects from "./Components/Section/Projects";
-import FAQ from "./Components/Section/FAQ";
+import HomeHero from "./Components/Sections/Hero/Hero";
+import GenericHero from "./Components/Sections/Hero/Hero2";
+import About from "./Components/Sections/About/About";
+import Services from "./Components/Sections/Services";
+import Contact from "./Components/Sections/Contact";
+import Testimonials from "./Components/Sections/Testimonials/Testimonials";
+import Projects from "./Components/Sections/Projects";
+import FAQ from "./Components/Sections/FAQ";
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
-import AboutInfo from "./Components/Section/About/AboutInfo";
-import AboutPurpose from "./Components/Section/About/AboutPurpose";
-import Process from "./Components/Section/Process/Process";
-import WhyChooseUs from "./Components/Section/About/WhyChooseUs";
-import Benefits from "./Components/Section/About/Benefits";
+import AboutInfo from "./Components/Sections/About/AboutInfo";
+import AboutPurpose from "./Components/Sections/About/AboutPurpose";
+import Process from "./Components/Sections/Process/Process";
+import WhyChooseUs from "./Components/Sections/About/WhyChooseUs";
+import Benefits from "./Components/Sections/About/Benefits";
+// import "./styles.css";
 
 const sectionComponents = {
   about: About,
@@ -42,7 +43,7 @@ const CMSDisplayTheme = ({ pageId }) => {
   // Initialize MenuManager
   const menuManager = new MenuManager(siteSettings);
 
-  const { title, description, content, sections, slug } = pageStructure;
+  const { title, description, sections, slug } = pageStructure;
   console.log("MenuManager instance:", menuManager);
 
   return (
@@ -56,9 +57,7 @@ const CMSDisplayTheme = ({ pageId }) => {
         <GenericHero title={title} description={description} />
       )}
 
-      <div className="page-content">
-        {content && <div dangerouslySetInnerHTML={{ __html: content }} />}
-      </div>
+      <div className="page-content"></div>
 
       {sections
         .filter(({ key }) => key !== "hero") // Exclude 'hero' key

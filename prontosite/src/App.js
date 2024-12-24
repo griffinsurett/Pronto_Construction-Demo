@@ -3,9 +3,10 @@ import React, { useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import DynamicRoutes from "./CMS/Utils/Routes";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop"; 
-import SetMetaInfo from "./CMS/Utils/SEO/SetMetaInfo";
+import { HelmetProvider } from 'react-helmet-async';
 import { initializeAnalyticsHead } from "./CMS/Headers-Footers/Headers";
 import { initializeAnalyticsFooter } from "./CMS/Headers-Footers/Footers";
+// import "./App.css";
 
 const App = () => {
   useEffect(() => {
@@ -15,11 +16,12 @@ const App = () => {
   }, []);
 
   return (
+    <HelmetProvider>
     <BrowserRouter>
-        <SetMetaInfo />
       <ScrollToTop /> {/* Ensure ScrollToTop is included here */}
       <DynamicRoutes />
     </BrowserRouter>
+    </HelmetProvider>
   );
 };
 
