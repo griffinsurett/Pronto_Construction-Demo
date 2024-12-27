@@ -11,7 +11,7 @@ import Testimonials from "./Components/Sections/Testimonials/Testimonials";
 import Projects from "./Components/Sections/Projects";
 import FAQ from "./Components/Sections/FAQ";
 import Header from "./Components/Header/Header";
-import Footer from "./Components/Footer/Footer";
+import Footer from "./Components/Sections/Footer/Footer";
 import AboutInfo from "./Components/Sections/About/AboutInfo";
 import AboutPurpose from "./Components/Sections/About/AboutPurpose";
 import Process from "./Components/Sections/Process/Process";
