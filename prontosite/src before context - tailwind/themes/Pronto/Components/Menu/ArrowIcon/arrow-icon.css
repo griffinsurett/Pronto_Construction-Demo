@@ -1,0 +1,12 @@
+/* Arrow Icon */
+.arrow-icon {
+    display: inline-block;
+    font-size: 1em;
+    color: #555;
+    transition: transform 0.3s ease;
+  }
+  
+  .arrow-icon:hover {
+    color: #000;
+  }
+  

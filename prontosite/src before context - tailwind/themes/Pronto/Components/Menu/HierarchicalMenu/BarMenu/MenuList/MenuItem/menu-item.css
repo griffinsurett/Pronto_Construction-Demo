@@ -1,0 +1,29 @@
+.menu-item {
+  position: relative;
+}
+
+.menu-link {
+  text-decoration: none;
+  color: #333;
+}
+
+.menu-link:hover {
+  text-decoration: underline;
+}
+
+.submenu-container {
+  display: flex;
+  align-items: center;
+}
+
+.submenu-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.submenu-toggle:hover {
+  color: #000;
+}

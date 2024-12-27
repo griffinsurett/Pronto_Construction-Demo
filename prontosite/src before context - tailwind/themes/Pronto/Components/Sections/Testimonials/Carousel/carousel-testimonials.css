@@ -1,0 +1,19 @@
+.carousel-testimonials {
+    margin: 0 auto;
+    max-width: 600px;
+    text-align: center;
+  }
+  
+  .carousel-slide {
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .carousel-author {
+    margin-top: 10px;
+  }
+  
+  .carousel-position {
+    font-size: 0.9rem;
+  }
+  

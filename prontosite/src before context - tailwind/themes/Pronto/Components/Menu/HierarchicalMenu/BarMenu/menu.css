@@ -1,0 +1,36 @@
+/* Menu List */
+.menu-list {
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  
+  .menu-item {
+    position: relative;
+  }
+  
+  /* Links */
+  .menu-link {
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .menu-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Submenu Toggle */
+  .submenu-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: #666;
+  }
+  
+  .submenu-toggle:hover {
+    color: #000;
+  }
+  
