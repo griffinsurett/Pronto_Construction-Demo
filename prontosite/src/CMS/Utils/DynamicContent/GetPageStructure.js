@@ -43,9 +43,8 @@ export const getPageStructure = (pageId) => {
 
   const description =
     item?.description ||
-    collection?.paragraph ||
-    // If no collection-level paragraph, maybe check collection.items.paragraph
-    collection?.items?.paragraph ||
+    collection?.description ||
+    collection?.items?.description ||
     page.description ||
     "";
 

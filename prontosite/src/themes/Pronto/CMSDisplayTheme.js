@@ -2,22 +2,21 @@
 import React from "react";
 import useThemeContent from "../../CMS/ThemeContentBridge";
 import MenuManager from "./Components/Menu/MenuManager"; // Import MenuManager
-import HomeHero from "./Components/Sections/Hero/Hero";
-import GenericHero from "./Components/Sections/Hero/Hero2";
-import About from "./Components/Sections/About/About";
-import Services from "./Components/Sections/Services";
-import Contact from "./Components/Sections/Contact";
-import Testimonials from "./Components/Sections/Testimonials/Testimonials";
-import Projects from "./Components/Sections/Projects";
-import FAQ from "./Components/Sections/FAQ";
-import Header from "./Components/Header/Header";
-import Footer from "./Components/Footer/Footer";
-import AboutInfo from "./Components/Sections/About/AboutInfo";
-import AboutPurpose from "./Components/Sections/About/AboutPurpose";
-import Process from "./Components/Sections/Process/Process";
-import WhyChooseUs from "./Components/Sections/About/WhyChooseUs";
-import Benefits from "./Components/Sections/About/Benefits";
-// import "./styles.css";
+import HomeHero from "./Sections/Hero/Hero";
+import GenericHero from "./Sections/Hero/Hero2";
+import About from "./Sections/About/About";
+import Services from "./Sections/Services";
+import Contact from "./Sections/Contact";
+import Testimonials from "./Sections/Testimonials/Testimonials";
+import Projects from "./Sections/Projects";
+import FAQ from "./Sections/FAQ";
+import Header from "./Sections/Header/Header";
+import Footer from "./Sections/Footer";
+import AboutInfo from "./Sections/About/AboutInfo";
+import AboutPurpose from "./Sections/About/AboutPurpose";
+import Process from "./Sections/Process";
+import WhyChooseUs from "./Sections/About/WhyChooseUs";
+import Benefits from "./Sections/About/Benefits";
 
 const sectionComponents = {
   about: About,
@@ -47,7 +46,7 @@ const CMSDisplayTheme = ({ pageId }) => {
   console.log("MenuManager instance:", menuManager);
 
   return (
-    <div className={`page-${pageId}`}>
+    <div className="flex flex-col min-h-screen">
       {/* Pass menuManager to Header */}
       <Header menuManager={menuManager} siteSettings={siteSettings} />
 
@@ -57,18 +56,18 @@ const CMSDisplayTheme = ({ pageId }) => {
         <GenericHero title={title} description={description} />
       )}
 
-      <div className="page-content"></div>
-
-      {sections
-        .filter(({ key }) => key !== "hero") // Exclude 'hero' key
-        .map(({ key, data }) => {
-          const SectionComponent = sectionComponents[key];
-          return SectionComponent ? (
-            <SectionComponent key={key} data={data} />
-          ) : (
-            <p key={key}>Content unavailable for section: {key}</p>
-          );
-        })}
+      <main className="flex-grow">
+        {sections
+          .filter(({ key }) => key !== "hero") // Exclude 'hero' key
+          .map(({ key, data }) => {
+            const SectionComponent = sectionComponents[key];
+            return SectionComponent ? (
+              <SectionComponent key={key} data={data} />
+            ) : (
+              <p key={key}>Content unavailable for section: {key}</p>
+            );
+          })}
+      </main>
 
       {/* Pass menuManager to Footer */}
       <Footer menuManager={menuManager} siteSettings={siteSettings} />

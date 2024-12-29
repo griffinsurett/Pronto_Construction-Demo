@@ -1,17 +1,21 @@
-// Components/Section/Section.js
+// Section.js
 import React from "react";
 import PropTypes from "prop-types";
-// import "./section.css"; // Create corresponding CSS for Section
 
 const Section = ({
-  className = "",
+  className = "h-screen flex flex-col justify-center items-center",
   id = "",
   style = {},
   children,
   ...restProps
 }) => {
   return (
-    <section className={`section-wrapper ${className}`} id={id} style={style} {...restProps}>
+    <section
+      className={`${className}`}
+      id={id}
+      style={style}
+      {...restProps}
+    >
       {children}
     </section>
   );

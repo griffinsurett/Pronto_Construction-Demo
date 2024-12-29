@@ -1,8 +1,7 @@
 // HamburgerMenu.js
 import React, { useState, useEffect } from "react";
-import Menu from "./Menu/Menu";
-import MenuOverlay from "./Menu/MenuOverlay/MenuOverlay";
-import "./hamburger-menu.css";
+import Menu from "./Menu";
+// import MenuOverlay from "./Menu/MenuOverlay/MenuOverlay";
 
 const HamburgerMenu = ({ menuItems, isMenuOpen, toggleMenu }) => {
   const [currentMenu, setCurrentMenu] = useState(menuItems);
@@ -29,15 +28,17 @@ const HamburgerMenu = ({ menuItems, isMenuOpen, toggleMenu }) => {
 
   return (
     <>
-      {isMenuOpen && <MenuOverlay toggleMenu={toggleMenu} />}
+      {/* {isMenuOpen && <MenuOverlay toggleMenu={toggleMenu} />} */}
       {isMenuOpen && (
-        <Menu
-          currentMenu={currentMenu}
-          menuHistory={menuHistory}
-          handleSubmenuClick={handleSubmenuClick}
-          handleBackClick={handleBackClick}
-          toggleMenu={toggleMenu}
-        />
+        <div className="fixed top-0 left-0 w-full h-full bg-white overflow-y-auto">
+          <Menu
+            currentMenu={currentMenu}
+            menuHistory={menuHistory}
+            handleSubmenuClick={handleSubmenuClick}
+            handleBackClick={handleBackClick}
+            toggleMenu={toggleMenu}
+          />
+        </div>
       )}
     </>
   );

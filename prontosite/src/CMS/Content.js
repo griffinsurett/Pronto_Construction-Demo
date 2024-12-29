@@ -69,7 +69,7 @@ const collections = [
     slug: "/about-us",
     sections: ["hero", "about", "purpose", "whyChooseUs", "aboutInfo", "benefits"],
     redirectFrom: ["/about"],
-    paragraph:
+    description:
       "At Pronto Construction and Demolition, we specialize in delivering high-quality renovation, construction, and demolition services.",
     purpose: {
       makeObjectSection: true,
@@ -151,7 +151,7 @@ const collections = [
     heading: "Contact Us.",
     title: "Contact Us",
     featuredImage: TestImage,
-    paragraph: `Discover answers to common questions about ${siteSettings.siteTitle}.`,
+    description: `Discover answers to common questions about ${siteSettings.siteTitle}.`,
     hasPage: true,
     slug: "/contact-us",
     addToQuery: [{ name: "Primary", parentQueryItem: null }],
@@ -225,7 +225,7 @@ const collections = [
       includeCollectionSlug: false,
       itemSections: ["hero", "projects", "services", "testimonials", "faq"],
       onlyParentItemsHasPage: true,
-      paragraph: "Explore our wide range of services designed to meet your needs.",
+      description: "Explore our wide range of services designed to meet your needs.",
       keywords: [
         "construction services",
         "general contractors",
@@ -389,7 +389,7 @@ const collections = [
         queryItemText: "heading",
       },
     ],
-    paragraph:
+    description:
       "Discover how Pronto Construction & Demolition simplifies your project from start to finish.",
     items: {
       // Not hierarchical; just a data array
@@ -465,7 +465,7 @@ relationalUtil.relate("projects", "/kitchen-remodel", "testimonials", "/john-doe
 // relationalUtil.relate("services", "/demolition", "projects", "/garage-demolition");
 relationalUtil.relate("services", "/painting", "projects", "/garage-demolition-in-nj");
 // relationalUtil.relate("projects", "/garage-demolition", "testimonials", "/jane-smith");
-relationalUtil.relate("services", "/construction", "faq", 2);
+relationalUtil.relate("services", "/construction", "faq", 1);
 
 setLogo(siteSettings.siteLogo);
 

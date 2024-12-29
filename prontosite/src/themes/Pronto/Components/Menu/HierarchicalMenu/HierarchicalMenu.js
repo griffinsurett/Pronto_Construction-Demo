@@ -1,10 +1,9 @@
 // HierarchicalMenu.js
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import Hamburger from "./HamburgerMenu/Hamburger/Hamburger";
+import Hamburger from "./HamburgerMenu/HamburgerIcon";
 import HamburgerMenu from "./HamburgerMenu/HamburgerMenu";
 import Menu from "./BarMenu/Menu";
-import "./hierarchical-menu.css";
 
 const HierarchicalMenu = ({
   menuItems,
@@ -44,16 +43,14 @@ const HierarchicalMenu = ({
   return (
     <>
       {isHamburgerVisible && <Hamburger isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />}
-      <nav
-        className={`hierarchical-menu ${
-          isMenuOpen || (!isResponsive && !hamburgerOnly) ? "open" : ""
-        } ${hamburgerOnly ? "hamburger-only" : ""}`}
-      >
-        {!isHamburgerVisible && <Menu menuItems={menuItems} />}
-        {isHamburgerVisible && (
-          <HamburgerMenu menuItems={menuItems} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
-        )}
-      </nav>
+      {!isHamburgerVisible && (
+        <nav className="flex space-x-6">
+          <Menu menuItems={menuItems} />
+        </nav>
+      )}
+      {isHamburgerVisible && (
+        <HamburgerMenu menuItems={menuItems} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+      )}
     </>
   );
 };
